@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1-beta.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.1-beta.1...v1.0.1-beta.2) (2025-01-13)
+
+### Bug Fixes
+
+* ensure updateIntervalInSeconds always defaults to 5 ([7f367a6](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/7f367a67bc57f99f79bfd193156f5ae8134ac892))
+
 ## [1.0.1-beta.1](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.0...v1.0.1-beta.1) (2025-01-13)
 
 ### Bug Fixes
