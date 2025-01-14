@@ -137,10 +137,16 @@ export abstract class SyncBoxDevice {
   }
 
   protected handlePowerCharacteristicSet(value: CharacteristicValue) {
-    this.platform.log.debug('Set On ->', value);
+    this.platform.log.debug(
+      'Set ' + this.getPowerCharacteristic() + ' ->',
+      value
+    );
     const currentVal = this.service.getCharacteristic(
       this.getPowerCharacteristic()
     ).value;
+    this.platform.log.debug(
+      'Current value of ' + this.getPowerCharacteristic() + ': ' + currentVal
+    );
     return this.updateMode(currentVal, value);
   }
 }

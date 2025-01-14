@@ -86,6 +86,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       this.config.updateIntervalInSeconds ?? 5;
     this.config.apiServerEnabled = this.config.apiServerEnabled ?? false;
     this.config.apiServerPort = this.config.apiServerPort ?? 40220;
+    this.config.requestsPerSecond = this.config.requestsPerSecond ?? 5;
   }
 
   configureAccessory(accessory: PlatformAccessory) {
@@ -101,16 +102,14 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       // generate a unique id for the accessory this should be generated from
       // something globally unique, but constant, for example, the device serial
       // number or MAC address
-      const uuid = accessory.UUID;
-      this.log.debug('UUID:', uuid);
-      this.log.debug('accessories contains:', this.accessories.has(uuid));
-      // see if an accessory with the same uuid has already been registered and restored from
+      const uuid = accessory.UUID; // see if an accessory with the same uuid has already been registered and restored from
       // the cached devices we stored in the `configureAccessory` method above
       const existingAccessory = this.accessories.get(uuid);
       if (existingAccessory) {
         this.log.debug(
           'Restoring existing accessory from cache: ',
-          existingAccessory.displayName
+          existingAccessory.displayName,
+          existingAccessory
         );
         const device = this.createDevice(existingAccessory, state);
         this.devices.push(device);
@@ -138,13 +137,9 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       }
     });
 
-    this.externalAccessories.forEach(externalAccessory => {
-      const uuid = externalAccessory.UUID;
-      const existingAccessory = this.accessories.get(uuid);
-      if (!existingAccessory) {
-        this.api.publishExternalAccessories(PLUGIN_NAME, [externalAccessory]);
-      }
-    });
+    this.api.publishExternalAccessories(PLUGIN_NAME, this.externalAccessories);
+
+    this.log.debug('Discovered devices:', this.devices);
 
     await this.update(state);
     setInterval(async () => {
@@ -154,7 +149,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
   }
 
   async update(state: State) {
-    this.log.debug('Updating state called');
+    this.log.debug('Updating state called', state);
     for (const device of this.devices) {
       this.log.debug('Updating device:', device.accessory.displayName);
       device.update(state);
@@ -208,6 +203,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       );
       accessories.push(accessory);
     }
+    this.log.debug('Discovered accessories:', accessories);
     return accessories;
   }
 
@@ -237,7 +233,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       Categories.TELEVISION;
     this.externalAccessories.push(accessory);
     this.log.debug(
-      'Created TV  named ' +
+      'Created TV named ' +
         accessoryName +
         ' with type ' +
         accessoryType +

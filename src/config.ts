@@ -24,4 +24,5 @@ export interface HueSyncBoxPlatformConfig extends PlatformConfig {
   apiServerPort: number;
   apiServerToken: string;
   apiServerEnabled: boolean;
+  requestsPerSecond: number;
 }
