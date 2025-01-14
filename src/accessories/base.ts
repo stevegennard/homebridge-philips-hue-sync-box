@@ -28,9 +28,9 @@ export abstract class SyncBoxDevice {
       this.getServiceSubType() !== undefined
         ? this.accessory.getService(this.getServiceType())
         : this.accessory.getServiceById(
-            this.getServiceType(),
+          this.getServiceType(),
             this.getServiceSubType() as string
-          );
+        );
 
     this.service =
       existingService ||
@@ -122,7 +122,7 @@ export abstract class SyncBoxDevice {
     this.state = state;
     this.platform.log.debug('Updated state to ' + this.state.execution.mode);
     this.service.updateCharacteristic(
-      this.platform.Characteristic.On,
+      this.getPowerCharacteristic(),
       this.state.execution.mode !== POWER_SAVE &&
         this.state.execution.mode !== PASSTHROUGH
     );

@@ -1,4 +1,4 @@
-import type {
+import {
   API,
   Characteristic,
   DynamicPlatformPlugin,
@@ -7,6 +7,7 @@ import type {
   Service,
   HAP,
   PlatformConfig,
+  Categories,
 } from 'homebridge';
 
 import { HueSyncBoxPlatformConfig } from './config';
@@ -232,8 +233,17 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
   ) {
     const accessory = this.createPlatformAccessory(state, accessoryName);
     accessory.category =
-      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()];
+      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()] ??
+      Categories.TELEVISION;
     this.externalAccessories.push(accessory);
+    this.log.debug(
+      'Created TV  named ' +
+        accessoryName +
+        ' with type ' +
+        accessoryType +
+        ' and category ' +
+        accessory.category
+    );
     return accessory;
   }
 

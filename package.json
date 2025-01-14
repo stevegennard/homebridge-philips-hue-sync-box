@@ -3,7 +3,17 @@
   "displayName": "Philips Hue Sync Box",
   "version": "1.0.1",
   "description": "Homebridge plugin for the Philips Hue Sync Box.",
-  "author": "Jared Brown",
+  "author": {
+    "name": "Jared Brown",
+    "email": "npm@jaredbrown.io",
+    "url": "https://github.com/jabrown93"
+  },
+  "contributors": [
+    {
+      "name": "Lukas Rögner",
+      "url": "https://github.com/lukasroegner"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/jabrown93/homebridge-philips-hue-sync-box#readme",
   "repository": {
