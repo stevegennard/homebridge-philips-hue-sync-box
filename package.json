@@ -97,8 +97,8 @@
   },
   "lint-staged": {
     "*.{js,mjs,ts,json,md}": [
-      "prettier --write",
-      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored"
+      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored",
+      "prettier --write"
     ]
   }
 }
