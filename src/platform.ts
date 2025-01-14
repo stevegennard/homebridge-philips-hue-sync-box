@@ -231,7 +231,8 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
     accessoryType: string
   ) {
     const accessory = this.createPlatformAccessory(state, accessoryName);
-    accessory.category = TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType];
+    accessory.category =
+      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()];
     this.externalAccessories.push(accessory);
     return accessory;
   }
