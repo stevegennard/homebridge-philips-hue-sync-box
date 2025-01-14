@@ -29,8 +29,9 @@ Show the Homebridge logs here, remove any sensitive information.
 **Plugin Config:**
 
 ```json
-Show your Homebridge config.json here, remove any sensitive information.
-```
+{
+  "message": "Show your Homebridge config.json here, remove any sensitive information."
+}
 
 **Screenshots:**
 
@@ -45,3 +46,4 @@ Show your Homebridge config.json here, remove any sensitive information.
 - **Operating System**: <!-- Raspbian / Ubuntu / Debian / Windows / macOS / Docker / hb-service -->
 
 <!-- Click the "Preview" tab before you submit to ensure the formatting is correct. -->
+```

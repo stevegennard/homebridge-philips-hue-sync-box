@@ -178,15 +178,7 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
         } else {
           let onMode = this.platform.config.defaultOnMode;
           if (onMode === 'lastSyncMode') {
-            if (
-              this.state &&
-              this.state.execution &&
-              this.state.execution.lastSyncMode
-            ) {
-              onMode = this.state.execution.lastSyncMode;
-            } else {
-              onMode = 'video';
-            }
+            onMode = this?.state?.execution?.lastSyncMode ?? 'video';
           }
 
           await this.updateExecution({
@@ -208,12 +200,12 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     }
   }
 
-  protected updateSources(modeInputServices: Service[]) {
+  protected updateSources(services: Service[]) {
     // Handles showing/hiding of sources
-    for (let i = 0; i < modeInputServices.length; i++) {
-      modeInputServices[i]
+    for (const service of services) {
+      service
         .getCharacteristic(this.platform.Characteristic.TargetVisibilityState)
-        .onSet(this.setVisibility(modeInputServices[i]));
+        .onSet(this.setVisibility(service));
     }
   }
 
