@@ -5,7 +5,6 @@ import { Execution, Hue, State } from '../state';
 import * as https from 'node:https';
 import { Logger } from 'homebridge';
 import { HueSyncBoxPlatformConfig } from '../config';
-import Bottleneck from 'bottleneck';
 
 const fetch = fetch_retry(originalFetch, {
   retries: 3,
@@ -15,16 +14,10 @@ const fetch = fetch_retry(originalFetch, {
 });
 
 export class SyncBoxClient {
-  private limiter: Bottleneck;
   constructor(
     private readonly log: Logger | Console,
     private readonly config: HueSyncBoxPlatformConfig
-  ) {
-    this.limiter = new Bottleneck({
-      maxConcurrent: 1,
-      minTime: 1000.0 / this.config.requestsPerSecond,
-    });
-  }
+  ) {}
 
   public getState(): Promise<State> {
     return this.sendRequest<State>('GET', '');

@@ -1,28 +1,29 @@
 import { PlatformConfig } from 'homebridge';
 
-export type tvAccessoryType = 'tv' | 'settopbox' | 'tvstick' | 'audioreceiver';
+export type TvAccessoryType = 'tv' | 'settopbox' | 'tvstick' | 'audioreceiver';
+export type OnMode = 'video' | 'music' | 'game' | 'lastSyncMode';
+export type OffMode = 'powersave' | 'passthrough';
 
 export interface HueSyncBoxPlatformConfig extends PlatformConfig {
   syncBoxIpAddress: string;
   syncBoxApiAccessToken: string;
-  defaultOnMode: string;
-  defaultOffMode: string;
+  defaultOnMode: OnMode;
+  defaultOffMode: OffMode;
   baseAccessory: 'lightbulb' | 'switch' | 'none';
   tvAccessory: boolean;
-  tvAccessoryType: tvAccessoryType;
+  tvAccessoryType: TvAccessoryType;
   tvAccessoryLightbulb: boolean;
   modeTvAccessory: boolean;
-  modeTvAccessoryType: tvAccessoryType;
+  modeTvAccessoryType: TvAccessoryType;
   modeTvAccessoryLightbulb: boolean;
   intensityTvAccessory: boolean;
-  intensityTvAccessoryType: tvAccessoryType;
+  intensityTvAccessoryType: TvAccessoryType;
   intensityTvAccessoryLightbulb: boolean;
   entertainmentTvAccessory: boolean;
-  entertainmentTvAccessoryType: tvAccessoryType;
+  entertainmentTvAccessoryType: TvAccessoryType;
   entertainmentTvAccessoryLightbulb: boolean;
   updateIntervalInSeconds: number;
   apiServerPort: number;
   apiServerToken: string;
   apiServerEnabled: boolean;
-  requestsPerSecond: number;
 }

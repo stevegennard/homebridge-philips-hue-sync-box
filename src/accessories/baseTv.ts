@@ -176,7 +176,7 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
             mode: this.platform.config.defaultOffMode,
           });
         } else {
-          let onMode = this.platform.config.defaultOnMode;
+          let onMode: string = this.platform.config.defaultOnMode;
           if (onMode === 'lastSyncMode') {
             onMode = this?.state?.execution?.lastSyncMode ?? 'video';
           }

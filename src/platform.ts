@@ -86,7 +86,29 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       this.config.updateIntervalInSeconds ?? 5;
     this.config.apiServerEnabled = this.config.apiServerEnabled ?? false;
     this.config.apiServerPort = this.config.apiServerPort ?? 40220;
-    this.config.requestsPerSecond = this.config.requestsPerSecond ?? 5;
+    this.config.defaultOnMode = this.config.defaultOnMode ?? 'video';
+    this.config.defaultOffMode = this.config.defaultOffMode ?? 'passthrough';
+    this.config.baseAccessory = this.config.baseAccessory ?? 'lightbulb';
+    this.config.tvAccessory = this.config.tvAccessory ?? false;
+    this.config.tvAccessoryType = this.config.tvAccessoryType ?? 'tv';
+    this.config.tvAccessoryLightbulb =
+      this.config.tvAccessoryLightbulb ?? false;
+    this.config.modeTvAccessory = this.config.modeTvAccessory ?? false;
+    this.config.modeTvAccessoryType = this.config.modeTvAccessoryType ?? 'tv';
+    this.config.modeTvAccessoryLightbulb =
+      this.config.modeTvAccessoryLightbulb ?? false;
+    this.config.intensityTvAccessory =
+      this.config.intensityTvAccessory ?? false;
+    this.config.intensityTvAccessoryType =
+      this.config.intensityTvAccessoryType ?? 'tv';
+    this.config.intensityTvAccessoryLightbulb =
+      this.config.intensityTvAccessoryLightbulb ?? false;
+    this.config.entertainmentTvAccessory =
+      this.config.entertainmentTvAccessory ?? false;
+    this.config.entertainmentTvAccessoryType =
+      this.config.entertainmentTvAccessoryType ?? 'tv';
+    this.config.entertainmentTvAccessoryLightbulb =
+      this.config.entertainmentTvAccessoryLightbulb ?? false;
   }
 
   configureAccessory(accessory: PlatformAccessory) {

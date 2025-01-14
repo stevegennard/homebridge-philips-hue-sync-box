@@ -179,13 +179,6 @@
         "type": "string",
         "required": false,
         "description": " The token that has to be included in each request of the API. Is required if the API is enabled and has no default value."
-      },
-      "requestsPerSecond": {
-        "title": "Requests per Second",
-        "type": "integer",
-        "default": 5,
-        "required": true,
-        "description": "The amount of requests that can be made per second to the Sync Box."
       }
     }
   }
