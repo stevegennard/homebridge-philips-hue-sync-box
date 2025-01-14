@@ -1,8 +1,17 @@
-import fetch from 'node-fetch';
+import originalFetch from 'node-fetch';
+import fetch_retry from 'fetch-retry';
+
 import { Execution, Hue, State } from '../state';
 import * as https from 'node:https';
 import { Logger } from 'homebridge';
 import { HueSyncBoxPlatformConfig } from '../config';
+
+const fetch = fetch_retry(originalFetch, {
+  retries: 3,
+  retryDelay: attempt => {
+    return Math.pow(2, attempt) * 1000; // 1000, 2000, 4000
+  },
+});
 
 export class SyncBoxClient {
   constructor(
@@ -14,12 +23,20 @@ export class SyncBoxClient {
     return this.sendRequest<State>('GET', '');
   }
 
-  public updateExecution(execution: Partial<Execution>): Promise<void> {
-    return this.sendRequest<void>('PUT', 'execution', execution);
+  public async updateExecution(execution: Partial<Execution>): Promise<void> {
+    try {
+      return await this.sendRequest<void>('PUT', 'execution', execution);
+    } catch (e) {
+      this.log.error('Error updating execution:', e);
+    }
   }
 
-  public updateHue(hue: Partial<Hue>): Promise<void> {
-    return this.sendRequest<void>('PUT', 'hue', hue);
+  public async updateHue(hue: Partial<Hue>): Promise<void> {
+    try {
+      return await this.sendRequest<void>('PUT', 'hue', hue);
+    } catch (e) {
+      this.log.error('Error updating hue:', e);
+    }
   }
 
   private async sendRequest<T>(

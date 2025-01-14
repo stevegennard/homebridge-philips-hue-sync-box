@@ -1,4 +1,4 @@
-import type {
+import {
   API,
   Characteristic,
   DynamicPlatformPlugin,
@@ -7,6 +7,7 @@ import type {
   Service,
   HAP,
   PlatformConfig,
+  Categories,
 } from 'homebridge';
 
 import { HueSyncBoxPlatformConfig } from './config';
@@ -85,6 +86,29 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       this.config.updateIntervalInSeconds ?? 5;
     this.config.apiServerEnabled = this.config.apiServerEnabled ?? false;
     this.config.apiServerPort = this.config.apiServerPort ?? 40220;
+    this.config.defaultOnMode = this.config.defaultOnMode ?? 'video';
+    this.config.defaultOffMode = this.config.defaultOffMode ?? 'passthrough';
+    this.config.baseAccessory = this.config.baseAccessory ?? 'lightbulb';
+    this.config.tvAccessory = this.config.tvAccessory ?? false;
+    this.config.tvAccessoryType = this.config.tvAccessoryType ?? 'tv';
+    this.config.tvAccessoryLightbulb =
+      this.config.tvAccessoryLightbulb ?? false;
+    this.config.modeTvAccessory = this.config.modeTvAccessory ?? false;
+    this.config.modeTvAccessoryType = this.config.modeTvAccessoryType ?? 'tv';
+    this.config.modeTvAccessoryLightbulb =
+      this.config.modeTvAccessoryLightbulb ?? false;
+    this.config.intensityTvAccessory =
+      this.config.intensityTvAccessory ?? false;
+    this.config.intensityTvAccessoryType =
+      this.config.intensityTvAccessoryType ?? 'tv';
+    this.config.intensityTvAccessoryLightbulb =
+      this.config.intensityTvAccessoryLightbulb ?? false;
+    this.config.entertainmentTvAccessory =
+      this.config.entertainmentTvAccessory ?? false;
+    this.config.entertainmentTvAccessoryType =
+      this.config.entertainmentTvAccessoryType ?? 'tv';
+    this.config.entertainmentTvAccessoryLightbulb =
+      this.config.entertainmentTvAccessoryLightbulb ?? false;
   }
 
   configureAccessory(accessory: PlatformAccessory) {
@@ -100,16 +124,14 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       // generate a unique id for the accessory this should be generated from
       // something globally unique, but constant, for example, the device serial
       // number or MAC address
-      const uuid = accessory.UUID;
-      this.log.debug('UUID:', uuid);
-      this.log.debug('accessories contains:', this.accessories.has(uuid));
-      // see if an accessory with the same uuid has already been registered and restored from
+      const uuid = accessory.UUID; // see if an accessory with the same uuid has already been registered and restored from
       // the cached devices we stored in the `configureAccessory` method above
       const existingAccessory = this.accessories.get(uuid);
       if (existingAccessory) {
         this.log.debug(
           'Restoring existing accessory from cache: ',
-          existingAccessory.displayName
+          existingAccessory.displayName,
+          existingAccessory
         );
         const device = this.createDevice(existingAccessory, state);
         this.devices.push(device);
@@ -137,13 +159,9 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       }
     });
 
-    this.externalAccessories.forEach(externalAccessory => {
-      const uuid = externalAccessory.UUID;
-      const existingAccessory = this.accessories.get(uuid);
-      if (!existingAccessory) {
-        this.api.publishExternalAccessories(PLUGIN_NAME, [externalAccessory]);
-      }
-    });
+    this.api.publishExternalAccessories(PLUGIN_NAME, this.externalAccessories);
+
+    this.log.debug('Discovered devices:', this.devices);
 
     await this.update(state);
     setInterval(async () => {
@@ -153,7 +171,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
   }
 
   async update(state: State) {
-    this.log.debug('Updating state called');
+    this.log.debug('Updating state called', state);
     for (const device of this.devices) {
       this.log.debug('Updating device:', device.accessory.displayName);
       device.update(state);
@@ -207,6 +225,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       );
       accessories.push(accessory);
     }
+    this.log.debug('Discovered accessories:', accessories);
     return accessories;
   }
 
@@ -232,8 +251,17 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
   ) {
     const accessory = this.createPlatformAccessory(state, accessoryName);
     accessory.category =
-      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()];
+      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()] ??
+      Categories.TELEVISION;
     this.externalAccessories.push(accessory);
+    this.log.debug(
+      'Created TV named ' +
+        accessoryName +
+        ' with type ' +
+        accessoryType +
+        ' and category ' +
+        accessory.category
+    );
     return accessory;
   }
 

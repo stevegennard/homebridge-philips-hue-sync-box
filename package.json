@@ -1,9 +1,19 @@
 {
   "name": "homebridge-philips-hue-sync-box",
   "displayName": "Philips Hue Sync Box",
-  "version": "1.0.1",
+  "version": "1.0.2-beta.4",
   "description": "Homebridge plugin for the Philips Hue Sync Box.",
-  "author": "Jared Brown",
+  "author": {
+    "name": "Jared Brown",
+    "email": "npm@jaredbrown.io",
+    "url": "https://github.com/jabrown93"
+  },
+  "contributors": [
+    {
+      "name": "Lukas Rögner",
+      "url": "https://github.com/lukasroegner"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/jabrown93/homebridge-philips-hue-sync-box#readme",
   "repository": {
@@ -82,13 +92,14 @@
     "typescript-eslint": "^8.19.1"
   },
   "dependencies": {
+    "fetch-retry": "^6.0.0",
     "homebridge-lib": "^7.1.1",
     "node-fetch": "^3.3.2"
   },
   "lint-staged": {
     "*.{js,mjs,ts,json,md}": [
-      "prettier --write",
-      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored"
+      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored",
+      "prettier --write"
     ]
   }
 }

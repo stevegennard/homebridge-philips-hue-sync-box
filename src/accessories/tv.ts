@@ -51,7 +51,7 @@ export class TvDevice extends BaseTvDevice {
       // Sets the TV name
       const hdmiState: HdmiInput = this.state.hdmi[`input${i}`];
       this.platform.log.debug('hdmiState', hdmiState);
-      const hdmiName = hdmiState.name || 'HDMI ' + i;
+      const hdmiName = hdmiState.name ?? 'HDMI ' + i;
       const hdmiPosition = 'HDMI ' + i;
       this.platform.log.debug('hdmiName', hdmiName);
       const hdmiInputService = this.getInputService(hdmiName, hdmiPosition);

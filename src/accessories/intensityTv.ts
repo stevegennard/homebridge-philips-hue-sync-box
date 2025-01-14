@@ -15,7 +15,7 @@ export class IntensityTvDevice extends BaseTvDevice {
       .getCharacteristic(this.platform.Characteristic.ActiveIdentifier)
       .onSet(async (value: CharacteristicValue) => {
         const mode = this.getMode();
-        const intensity = this.numberToIntensity.get(value as number) || '';
+        const intensity = this.numberToIntensity.get(value as number) ?? '';
         this.platform.log.debug('Switch intensity to ' + intensity);
         const body = {};
         body[mode] = {

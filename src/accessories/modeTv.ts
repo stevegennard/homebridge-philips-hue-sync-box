@@ -56,10 +56,16 @@ export class ModeTvDevice extends BaseTvDevice {
 
   updateTv(): void {
     // Updates the mode characteristic
-    this.platform.log.debug('Updated mode to ' + this.state.execution.mode);
+    const mode = this.getMode();
+    this.platform.log.debug('Updated mode to ' + mode);
+    const number = this.modeToNumber.get(mode);
+    if (!number) {
+      this.platform.log.error('Unknown mode for Mode TV: ' + mode);
+      return;
+    }
     this.service.updateCharacteristic(
       this.platform.Characteristic.ActiveIdentifier,
-      this.modeToNumber.get(this.state.execution.mode) ?? null
+      number
     );
   }
 }
