@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2-beta.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.2-beta.1...v1.0.2-beta.2) (2025-01-14)
+
+### Bug Fixes
+
+* retry failed requests and better error handling ([146fcd9](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/146fcd9c2dbb22954bd3fcd7e175c2630f3bd39e))
+
 ## [1.0.2-beta.1](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.1...v1.0.2-beta.1) (2025-01-14)
 
 ### Bug Fixes
