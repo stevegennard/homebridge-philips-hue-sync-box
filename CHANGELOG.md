@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.1...v1.0.2) (2025-01-14)
+
+### Bug Fixes
+
+* Ensure each config always has a default ([247a4da](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/247a4da867c0af525d64b90c456d6c11636b97e8))
+* Mode TV now updates mode correctly from Hue State ([028b49c](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/028b49ccd7cc6a54e788ef7cf8397faa0432d0db))
+* retry failed requests and better error handling ([146fcd9](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/146fcd9c2dbb22954bd3fcd7e175c2630f3bd39e))
+* use proper power characteristic when updating ([8e5b254](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/8e5b25495abcfc2325ecf6a4f86cb62b14d7b46c))
+
 ## [1.0.2-beta.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.2-beta.3...v1.0.2-beta.4) (2025-01-14)
 
 ### Bug Fixes
