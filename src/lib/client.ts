@@ -23,21 +23,19 @@ export class SyncBoxClient {
     return this.sendRequest<State>('GET', '');
   }
 
-  public updateExecution(execution: Partial<Execution>): Promise<void> {
+  public async updateExecution(execution: Partial<Execution>): Promise<void> {
     try {
-      return this.sendRequest<void>('PUT', 'execution', execution);
-    } catch (error) {
-      this.log.error('Error updating execution:', error);
-      return Promise.resolve();
+      return await this.sendRequest<void>('PUT', 'execution', execution);
+    } catch (e) {
+      this.log.error('Error updating execution:', e);
     }
   }
 
-  public updateHue(hue: Partial<Hue>): Promise<void> {
+  public async updateHue(hue: Partial<Hue>): Promise<void> {
     try {
-      return this.sendRequest<void>('PUT', 'hue', hue);
-    } catch (error) {
-      this.log.error('Error updating hue:', error);
-      return Promise.resolve();
+      return await this.sendRequest<void>('PUT', 'hue', hue);
+    } catch (e) {
+      this.log.error('Error updating hue:', e);
     }
   }
 
