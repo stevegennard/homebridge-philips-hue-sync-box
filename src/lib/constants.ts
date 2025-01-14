@@ -12,5 +12,5 @@ export const TV_ACCESSORY_TYPES_TO_CATEGORY: Record<string, number> = {
   settopbox: Categories.TV_SET_TOP_BOX,
   tvstick: Categories.TV_STREAMING_STICK,
   audioreceiver: Categories.AUDIO_RECEIVER,
-  television: Categories.TELEVISION,
+  tv: Categories.TELEVISION,
 };

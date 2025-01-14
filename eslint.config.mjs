@@ -14,7 +14,12 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ['**/homebridge-ui', '**/dist'],
+    ignores: [
+      '**/homebridge-ui',
+      '**/dist',
+      'package-lock.json',
+      'package.json',
+    ],
   },
   ...compat.extends(
     'eslint:recommended',

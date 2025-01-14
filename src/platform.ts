@@ -52,6 +52,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       throw new Error('API is not defined');
     }
     this.config = platformConfig as HueSyncBoxPlatformConfig;
+    this.handleConfigDefaults();
     this.api = apiInput;
     this.log = logger ?? console;
     this.log.info('Initializing platform:', this.config.name);
@@ -77,6 +78,13 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
       const apiServer = new ApiServer(this);
       apiServer.start();
     }
+  }
+
+  handleConfigDefaults() {
+    this.config.updateIntervalInSeconds =
+      this.config.updateIntervalInSeconds ?? 5;
+    this.config.apiServerEnabled = this.config.apiServerEnabled ?? false;
+    this.config.apiServerPort = this.config.apiServerPort ?? 40220;
   }
 
   configureAccessory(accessory: PlatformAccessory) {
@@ -223,7 +231,8 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
     accessoryType: string
   ) {
     const accessory = this.createPlatformAccessory(state, accessoryName);
-    accessory.category = TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType];
+    accessory.category =
+      TV_ACCESSORY_TYPES_TO_CATEGORY[accessoryType.toLowerCase()];
     this.externalAccessories.push(accessory);
     return accessory;
   }

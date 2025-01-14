@@ -123,11 +123,11 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
         this.platform.log.debug('Toggle intensity');
         const currentIntensity = this.state.execution[mode].intensity;
         const nextLowestIntensity =
-          this.intensityToNumber[currentIntensity] - 1;
+          (this.intensityToNumber.get(currentIntensity) ?? 4) - 1;
         if (nextLowestIntensity < 1) {
           break;
         }
-        const nextIntensity = this.numberToIntensity[nextLowestIntensity];
+        const nextIntensity = this.numberToIntensity.get(nextLowestIntensity);
         const body = {};
         body[mode] = {
           intensity: nextIntensity,
@@ -143,11 +143,11 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
         this.platform.log.debug('Toggle intensity');
         const currentIntensity = this.state.execution[mode].intensity;
         const nextHighestIntensity =
-          this.intensityToNumber[currentIntensity] + 1;
+          (this.intensityToNumber.get(currentIntensity) ?? 1) + 1;
         if (nextHighestIntensity > 4) {
           break;
         }
-        const nextIntensity = this.numberToIntensity[nextHighestIntensity];
+        const nextIntensity = this.numberToIntensity.get(nextHighestIntensity);
         const body = {};
         body[mode] = {
           intensity: nextIntensity,
@@ -159,9 +159,9 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
       case this.platform.Characteristic.RemoteKey.SELECT: {
         this.platform.log.debug('Toggle mode');
         const currentMode = this.state.execution.mode;
-        const nextMode = (this.modeToNumber[currentMode] % 4) + 1;
+        const nextMode = ((this.modeToNumber.get(currentMode) ?? 4) % 4) + 1;
         await this.updateExecution({
-          mode: this.numberToMode[nextMode],
+          mode: this.numberToMode.get(nextMode),
         });
         break;
       }
@@ -244,7 +244,13 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     );
   }
 
-  protected getInputService(name: string, position: string): Service {
+  protected getInputService(
+    name: string | undefined,
+    position: string
+  ): Service {
+    if (!name) {
+      throw new Error('Name is required');
+    }
     const inputService =
       this.accessory.getServiceById(
         this.platform.Service.InputSource,

@@ -15,7 +15,7 @@ export class IntensityTvDevice extends BaseTvDevice {
       .getCharacteristic(this.platform.Characteristic.ActiveIdentifier)
       .onSet(async (value: CharacteristicValue) => {
         const mode = this.getMode();
-        const intensity = this.numberToIntensity[value as number] || '';
+        const intensity = this.numberToIntensity.get(value as number) || '';
         this.platform.log.debug('Switch intensity to ' + intensity);
         const body = {};
         body[mode] = {
@@ -29,7 +29,7 @@ export class IntensityTvDevice extends BaseTvDevice {
     for (let i = 1; i < this.numberToIntensity.size; i++) {
       const position = 'INTENSITY ' + i;
       const intensityInputService = this.getInputService(
-        this.numberToIntensity[i],
+        this.numberToIntensity.get(i),
         position
       );
 
@@ -53,8 +53,9 @@ export class IntensityTvDevice extends BaseTvDevice {
     this.platform.log.debug(
       'Updated intensity to ' + this.state.execution[mode].intensity
     );
-    const brightness =
-      this.intensityToNumber[this.state.execution[mode].intensity];
+    const brightness = this.intensityToNumber.get(
+      this.state.execution[mode].intensity
+    );
     if (brightness) {
       this.service.updateCharacteristic(
         this.platform.Characteristic.ActiveIdentifier,

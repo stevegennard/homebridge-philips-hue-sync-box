@@ -17,7 +17,7 @@ export class ModeTvDevice extends BaseTvDevice {
     this.service
       .getCharacteristic(this.platform.Characteristic.ActiveIdentifier)
       .onSet(async (value: CharacteristicValue) => {
-        const mode = this.numberToMode[value as number];
+        const mode = this.numberToMode.get(value as number);
         this.platform.log.debug('Switch mode to ' + mode);
         return await this.updateExecution({
           mode,
@@ -29,7 +29,7 @@ export class ModeTvDevice extends BaseTvDevice {
     const modeInputServices: Service[] = [];
     for (let i = 1; i <= 4; i++) {
       const position = 'MODE ' + i;
-      const name = this.numberToMode[i];
+      const name = this.numberToMode.get(i);
       const modeInputService = this.getInputService(name, position);
       // Adds the input as a linked service, which is important so that the input is properly displayed in the Home app
       this.service.addLinkedService(modeInputService);
@@ -59,7 +59,7 @@ export class ModeTvDevice extends BaseTvDevice {
     this.platform.log.debug('Updated mode to ' + this.state.execution.mode);
     this.service.updateCharacteristic(
       this.platform.Characteristic.ActiveIdentifier,
-      this.modeToNumber[this.state.execution.mode]
+      this.modeToNumber.get(this.state.execution.mode) ?? null
     );
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "homebridge-philips-hue-sync-box",
   "displayName": "Philips Hue Sync Box",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.3",
   "description": "Homebridge plugin for the Philips Hue Sync Box.",
   "author": "Jared Brown",
   "license": "MIT",
@@ -47,7 +47,9 @@
     "prepublishOnly": "npm-run-all prettier lint build",
     "semantic-release": "cross-env semantic-release --no-ci",
     "release": "npm-run-all build semantic-release",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "prepare": "husky",
+    "tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
@@ -69,6 +71,8 @@
     "eslint": "^9.17.0",
     "homebridge": "^2.0.0-beta.23",
     "homebridge-config-ui-x": "^5.0.0-beta.32",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
@@ -80,5 +84,11 @@
   "dependencies": {
     "homebridge-lib": "^7.1.1",
     "node-fetch": "^3.3.2"
+  },
+  "lint-staged": {
+    "*.{js,mjs,ts,json,md}": [
+      "prettier --write",
+      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored"
+    ]
   }
 }
