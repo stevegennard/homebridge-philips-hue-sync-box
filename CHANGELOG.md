@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1-beta.3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.1-beta.2...v1.0.1-beta.3) (2025-01-14)
+
+### Bug Fixes
+
+* set active identifier correctly from lookup map ([583187f](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/583187f9964c0a32f3343a80fe2e4b8cfd11154f))
+
 ## [1.0.1-beta.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.1-beta.1...v1.0.1-beta.2) (2025-01-13)
 
 ### Bug Fixes
