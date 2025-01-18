@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.3...v1.0.4) (2025-01-18)
+
+### Bug Fixes
+
+* set ConfiguredName for TV accessories to prevent "Sync Box" name ([#91](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/91)) ([#92](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/92)) ([8eb523c](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/8eb523c3d073eba591fce5be3a0d4b7138a80ddc))
+
 ## [1.0.3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.2...v1.0.3) (2025-01-17)
 
 ### Bug Fixes
