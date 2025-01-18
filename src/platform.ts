@@ -179,7 +179,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
   }
 
   private discoverAccessories(state: State): PlatformAccessory[] {
-    this.log.debug('Discovering devices');
+    this.log.debug('Discovering accessories');
     const accessories: PlatformAccessory[] = [];
     if (this.config.baseAccessory !== 'none') {
       const mainAccessory = this.createPlatformAccessory(
