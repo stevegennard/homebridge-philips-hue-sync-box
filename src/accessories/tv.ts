@@ -7,9 +7,10 @@ export class TvDevice extends BaseTvDevice {
   constructor(
     protected readonly platform: HueSyncBoxPlatform,
     public readonly accessory: PlatformAccessory,
-    protected state: State
+    protected state: State,
+    protected mainAccessory?: PlatformAccessory
   ) {
-    super(platform, accessory, state);
+    super(platform, accessory, state, mainAccessory);
     this.service
       .getCharacteristic(this.platform.Characteristic.ActiveIdentifier)
       .onSet(async value => {
@@ -39,6 +40,10 @@ export class TvDevice extends BaseTvDevice {
 
   protected getServiceName(): string | undefined {
     return 'TV';
+  }
+
+  protected getConfiguredNamePropertyName(): string {
+    return 'tvAccessoryConfiguredName';
   }
 
   protected isLightbulbEnabled(): boolean {

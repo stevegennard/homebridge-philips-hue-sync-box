@@ -11,6 +11,7 @@ import { PASSTHROUGH, POWER_SAVE } from '../lib/constants.js';
 export abstract class BaseTvDevice extends SyncBoxDevice {
   protected lightbulbService?: Service;
   protected inputServices: Service[] = [];
+  protected mainAccessory?: PlatformAccessory;
 
   protected readonly intensityToNumber: Map<string, number> = new Map([
     ['subtle', 1],
@@ -43,9 +44,12 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
   protected constructor(
     protected readonly platform: HueSyncBoxPlatform,
     public readonly accessory: PlatformAccessory,
-    protected state: State
+    protected state: State,
+    protected primaryAccessory?: PlatformAccessory
   ) {
     super(platform, accessory, state);
+    this.mainAccessory = primaryAccessory;
+
     this.createInputServices();
     this.createLightbulbService();
     this.service.setCharacteristic(
@@ -55,6 +59,26 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     this.service
       .getCharacteristic(this.platform.Characteristic.RemoteKey)
       .onSet(this.handleRemoteButton.bind(this));
+
+    const name: string =
+      this.mainAccessory?.context[this.getConfiguredNamePropertyName()] ??
+      state.device.name;
+    this.service
+      .getCharacteristic(this.platform.Characteristic.ConfiguredName)
+      .onSet(this.handleConfiguredNameChange.bind(this));
+    this.service.setCharacteristic(
+      this.platform.Characteristic.ConfiguredName,
+      name
+    );
+  }
+
+  protected handleConfiguredNameChange(value: CharacteristicValue) {
+    this.platform.log.debug(
+      this.getConfiguredNamePropertyName() + ' name changed to ' + value
+    );
+    if (this.mainAccessory) {
+      this.mainAccessory.context[this.getConfiguredNamePropertyName()] = value;
+    }
   }
 
   protected abstract createInputServices(): void;
@@ -303,4 +327,6 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     }
     return mode;
   }
+
+  protected abstract getConfiguredNamePropertyName(): string;
 }

@@ -7,9 +7,10 @@ export class IntensityTvDevice extends BaseTvDevice {
   constructor(
     protected readonly platform: HueSyncBoxPlatform,
     public readonly accessory: PlatformAccessory,
-    protected state: State
+    protected state: State,
+    protected mainAccessory?: PlatformAccessory
   ) {
-    super(platform, accessory, state);
+    super(platform, accessory, state, mainAccessory);
 
     this.service
       .getCharacteristic(this.platform.Characteristic.ActiveIdentifier)
@@ -74,6 +75,10 @@ export class IntensityTvDevice extends BaseTvDevice {
 
   protected getServiceName(): string | undefined {
     return 'Intensity';
+  }
+
+  protected getConfiguredNamePropertyName(): string {
+    return 'intensityTvAccessoryConfiguredName';
   }
 
   protected isLightbulbEnabled(): boolean {
