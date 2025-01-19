@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.7...v1.0.8) (2025-01-19)
+
+### Bug Fixes
+
+* Default values for the UI config editor are now cased properly ([dfd1777](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/dfd1777e2fe88613dca8bdfafe30a115bc323a38))
+* Invalid base accessory values now default to None to match config UI ([4ea50be](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/4ea50be8d40e36442188fac2896f77fac91d85d7))
+
 ## [1.0.7](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.6...v1.0.7) (2025-01-19)
 
 ### Performance Improvements
@@ -49,4 +56,3 @@ All notable changes to this project will be documented in this file. See
 * add keep-alive to HTTP requests ([#77](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/77)) ([f344c44](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/f344c441dcd000bf56eb12cfd9d88b71a586236c))
 * ensure updateIntervalInSeconds always defaults to 5 ([7f367a6](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/7f367a67bc57f99f79bfd193156f5ae8134ac892))
 * set active identifier correctly from lookup map ([583187f](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/583187f9964c0a32f3343a80fe2e4b8cfd11154f))
-
