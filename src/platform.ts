@@ -15,8 +15,10 @@ import { SyncBoxDevice } from './accessories/base.js';
 import {
   ENTERTAINMENT_TV_ACCESSORY,
   INTENSITY_TV_ACCESSORY,
+  LIGHTBULB,
   LIGHTBULB_ACCESSORY,
   MODE_TV_ACCESSORY,
+  SWITCH,
   SWITCH_ACCESSORY,
   TV_ACCESSORY,
   TV_ACCESSORY_TYPES_TO_CATEGORY,
@@ -190,15 +192,19 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
     );
     this.log.debug('Discovering accessories');
     const accessories: PlatformAccessory[] = [];
-    if (this.config.baseAccessory !== 'none') {
-      const mainAccessory = this.createPlatformAccessory(
+    if (
+      this.config.baseAccessory === LIGHTBULB ||
+      this.config.baseAccessory === SWITCH
+    ) {
+      this.mainAccessory = this.createPlatformAccessory(
         state,
-        this.config.baseAccessory === 'lightbulb'
+        this.config.baseAccessory === LIGHTBULB
           ? LIGHTBULB_ACCESSORY
           : SWITCH_ACCESSORY
       );
-      accessories.push(mainAccessory);
+      accessories.push(this.mainAccessory);
     }
+
     if (this.config.tvAccessory) {
       const tvAccessory = this.createTvAccessory(
         state,
