@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.4...v1.0.5) (2025-01-19)
+
+### Bug Fixes
+
+* Update UUID seed for TV Accessories to match <1.0.0 ([#75](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/75)) ([#86](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/86)) ([#94](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/94)) ([afe96ed](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/afe96ed344f9e6e1f72f6d608a6785e5030294b7))
+
 ## [1.0.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.3...v1.0.4) (2025-01-18)
 
 ### Bug Fixes
