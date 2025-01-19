@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.5...v1.0.6) (2025-01-19)
+
+### Bug Fixes
+
+* Intense mode shows up. Inputs are Capitalized. LightBulbAccessoy is properly cased ([#95](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/95)) ([bc225bd](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bc225bdc9fab25ba2817eee113219f6d918f3af3))
+
 ## [1.0.5](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.4...v1.0.5) (2025-01-19)
 
 ### Bug Fixes
