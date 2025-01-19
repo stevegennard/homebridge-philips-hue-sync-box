@@ -46,7 +46,8 @@
       "baseAccessory": {
         "title": "Base Accessory Type",
         "type": "string",
-        "default": "Lightbulb",
+        "default": "lightbulb",
+        "required": true,
         "oneOf": [
           { "title": "Lightbulb", "enum": ["lightbulb"] },
           { "title": "Switch", "enum": ["switch"] },
@@ -63,7 +64,7 @@
       "tvAccessoryType": {
         "title": "HDMI TV HomeKit Type",
         "type": "string",
-        "default": "TV",
+        "default": "tv",
         "oneOf": [
           { "title": "TV", "enum": ["tv"] },
           { "title": "Set Top Box", "enum": ["settopbox"] },
@@ -88,7 +89,7 @@
       "modeTvAccessoryType": {
         "title": "Mode TV HomeKit Type",
         "type": "string",
-        "default": "TV",
+        "default": "tv",
         "oneOf": [
           { "title": "TV", "enum": ["tv"] },
           { "title": "Set Top Box", "enum": ["settopbox"] },
@@ -113,7 +114,7 @@
       "intensityTvAccessoryType": {
         "title": "Intensity TV HomeKit Type",
         "type": "string",
-        "default": "TV",
+        "default": "tv",
         "oneOf": [
           { "title": "TV", "enum": ["tv"] },
           { "title": "Set Top Box", "enum": ["settopbox"] },
@@ -138,7 +139,7 @@
       "entertainmentTvAccessoryType": {
         "title": "Entertainment Area TV HomeKit Type",
         "type": "string",
-        "default": "TV",
+        "default": "tv",
         "oneOf": [
           { "title": "TV", "enum": ["tv"] },
           { "title": "Set Top Box", "enum": ["settopbox"] },
