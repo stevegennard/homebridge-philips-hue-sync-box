@@ -128,8 +128,14 @@ export abstract class SyncBoxDevice {
     this.platform.log.debug('Updated state to ' + this.state.execution.mode);
     this.service.updateCharacteristic(
       this.getPowerCharacteristic(),
+      this.shouldBeOn()
+    );
+  }
+
+  protected shouldBeOn(): boolean {
+    return (
       this.state.execution.mode !== POWER_SAVE &&
-        this.state.execution.mode !== PASSTHROUGH
+      this.state.execution.mode !== PASSTHROUGH
     );
   }
 

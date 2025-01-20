@@ -99,6 +99,10 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     }
   }
 
+  protected shouldBeOn(): boolean {
+    return this.state.execution.mode !== POWER_SAVE;
+  }
+
   protected abstract createInputServices(): void;
 
   protected abstract isLightbulbEnabled(): boolean;
