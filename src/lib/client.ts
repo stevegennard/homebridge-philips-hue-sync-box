@@ -5,6 +5,7 @@ import { Execution, Hue, State } from '../state.js';
 import * as https from 'node:https';
 import { Logger } from 'homebridge';
 import { HueSyncBoxPlatformConfig } from '../config.js';
+import AsyncLock, { AsyncLockOptions } from 'async-lock';
 
 const fetch = fetch_retry(originalFetch, {
   retries: 3,
@@ -14,29 +15,55 @@ const fetch = fetch_retry(originalFetch, {
 });
 
 export class SyncBoxClient {
+  private readonly LOCK_KEY = 'sync-box';
+  private readonly LOCK_OPTIONS: AsyncLockOptions = {
+    timeout: 10000,
+    maxExecutionTime: 5000,
+  };
+
+  private readonly lock: AsyncLock;
+
   constructor(
     private readonly log: Logger | Console,
     private readonly config: HueSyncBoxPlatformConfig
-  ) {}
+  ) {
+    this.lock = new AsyncLock();
+  }
 
-  public getState(): Promise<State> {
-    return this.sendRequest<State>('GET', '');
+  public async getState(): Promise<State> {
+    return (await this.lock
+      .acquire(
+        this.LOCK_KEY,
+        async () => await this.sendRequest<State>('GET', ''),
+        this.LOCK_OPTIONS
+      )
+      .catch(e => {
+        this.log.error('Error getting state:', e);
+      })) as State;
   }
 
   public async updateExecution(execution: Partial<Execution>): Promise<void> {
-    try {
-      return await this.sendRequest<void>('PUT', 'execution', execution);
-    } catch (e) {
-      this.log.error('Error updating execution:', e);
-    }
+    return await this.lock
+      .acquire(
+        this.LOCK_KEY,
+        async () => await this.sendRequest<void>('PUT', 'execution', execution),
+        this.LOCK_OPTIONS
+      )
+      .catch(e => {
+        this.log.error('Error updating execution:', e);
+      });
   }
 
   public async updateHue(hue: Partial<Hue>): Promise<void> {
-    try {
-      return await this.sendRequest<void>('PUT', 'hue', hue);
-    } catch (e) {
-      this.log.error('Error updating hue:', e);
-    }
+    return await this.lock
+      .acquire(
+        this.LOCK_KEY,
+        async () => await this.sendRequest<void>('PUT', 'hue', hue),
+        this.LOCK_OPTIONS
+      )
+      .catch(e => {
+        this.log.error('Error updating hue:', e);
+      });
   }
 
   private async sendRequest<T>(

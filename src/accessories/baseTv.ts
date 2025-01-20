@@ -166,6 +166,12 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
         mode = this.getMode();
 
         this.platform.log.debug('Toggle intensity');
+        if (!this.state.execution[mode]) {
+          this.platform.log.debug(
+            'Current mode ' + mode + ' does not have an intensity to update'
+          );
+          break;
+        }
         const currentIntensity = this.state.execution[mode].intensity;
         const nextLowestIntensity =
           (this.intensityToNumber.get(currentIntensity) ?? 4) - 1;
@@ -186,6 +192,12 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
         mode = this.getMode();
 
         this.platform.log.debug('Toggle intensity');
+        if (!this.state.execution[mode]) {
+          this.platform.log.debug(
+            'Current mode ' + mode + ' does not have an intensity to update'
+          );
+          break;
+        }
         const currentIntensity = this.state.execution[mode].intensity;
         const nextHighestIntensity =
           (this.intensityToNumber.get(currentIntensity) ?? 1) + 1;

@@ -60,7 +60,7 @@ export class ModeTvDevice extends BaseTvDevice {
 
   updateTv(): void {
     // Updates the mode characteristic
-    const mode = this.getMode();
+    const mode = this.state.execution.mode;
     this.platform.log.debug('Updated mode to ' + mode);
     const number = this.modeToNumber.get(mode);
     if (!number) {
