@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.8...v1.1.0) (2025-01-20)
+
+### Features
+
+* Adds ability to set accessory names in Homebridge, overrides HomeKit ([dc44485](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/dc44485d19a2ffe573b6a743d9c649651345a7f7))
+
 ## [1.0.8](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.7...v1.0.8) (2025-01-19)
 
 ### Bug Fixes
