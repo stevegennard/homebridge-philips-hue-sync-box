@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.1...v1.1.2) (2025-01-20)
+
+### Bug Fixes
+
+* Config UI now sets Intensity TV name properly, name may need to be readded to config ([11c7181](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/11c71817ce7d25866c3e44221ef814e1571fddaf))
+* prevent misleading logs about configured names on startup ([bc4b6bc](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bc4b6bc7e12c6bc63dc91ffadc7ae91f8ece5fa5))
+
 ## [1.1.1](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.0...v1.1.1) (2025-01-20)
 
 ### Bug Fixes
