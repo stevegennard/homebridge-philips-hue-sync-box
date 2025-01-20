@@ -75,6 +75,7 @@
     "@semantic-release/github": "^11.0.1",
     "@semantic-release/npm": "^12.0.1",
     "@semantic-release/release-notes-generator": "^14.0.3",
+    "@types/async-lock": "^1.4.2",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.10.5",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
@@ -95,6 +96,7 @@
     "typescript-eslint": "^8.19.1"
   },
   "dependencies": {
+    "async-lock": "^1.4.1",
     "fetch-retry": "^6.0.0",
     "homebridge-lib": "^7.1.1",
     "node-fetch": "^3.3.2"
