@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.2...v1.1.3) (2025-01-20)
+
+### Bug Fixes
+
+* Mode changes handle passthrough state properly ([0c6b6e0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/0c6b6e06c3d5f6458e306549fe7bbaaa3e01426a))
+* Prevent HomeKit from showing the wrong state due to update race condition ([2dc1155](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/2dc11552a14e6c0e3117758674aa92819eb62e43))
+* Use last sync mode for intensity udpates when in passthrough or power save ([3f30654](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/3f306540b082a065d1299c7374f52bfb5b874e28))
+
 ## [1.1.2](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.1...v1.1.2) (2025-01-20)
 
 ### Bug Fixes
