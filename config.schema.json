@@ -168,7 +168,7 @@
         "required": false,
         "description": "Enables a TV Accessory for switching the intensity of the Sync Box."
       },
-      "intensityTvName": {
+      "intensityTvAccessoryConfiguredName": {
         "title": "Set name for Intensity TV",
         "type": "string",
         "required": false,
