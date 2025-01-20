@@ -118,6 +118,7 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
 
   async discoverDevices() {
     const state = await this.client.getState();
+    this.log.debug('Discovered state:', state);
     const accessories = this.discoverAccessories(state);
     const uuids = accessories.map(accessory => {
       const uuid = accessory.UUID; // see if an accessory with the same uuid has already been registered and restored from
