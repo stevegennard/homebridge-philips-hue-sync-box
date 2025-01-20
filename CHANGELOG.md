@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.3...v1.1.4) (2025-01-20)
+
+### Bug Fixes
+
+* handle powersave mode and offline sync box ([1b0370a](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/1b0370ada4ac6abbf732791b06a22485ad850e3a))
+
 ## [1.1.3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.2...v1.1.3) (2025-01-20)
 
 ### Bug Fixes
