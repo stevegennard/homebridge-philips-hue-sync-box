@@ -47,10 +47,16 @@ export class IntensityTvDevice extends BaseTvDevice {
   updateTv(): void {
     // Gets the current mode or the last sync mode to set the intensity
     const mode = this.getMode();
+    if (!this.state.execution[mode]) {
+      this.platform.log.debug(
+        'Current mode ' + mode + ' does not have an intensity to update'
+      );
+      return;
+    }
 
     // Updates the intensity input characteristic
     this.platform.log.debug(
-      'Updated intensity to ' + this.state.execution[mode].intensity
+      'Updated intensity to ' + this.state.execution[mode]?.intensity
     );
     const brightness = this.intensityToNumber.get(
       this.state.execution[mode].intensity
