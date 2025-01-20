@@ -31,15 +31,16 @@ export class SyncBoxClient {
   }
 
   public async getState(): Promise<State> {
-    return (await this.lock
+    return await this.lock
       .acquire(
         this.LOCK_KEY,
         async () => await this.sendRequest<State>('GET', ''),
         this.LOCK_OPTIONS
       )
       .catch(e => {
-        this.log.error('Error getting state:', e);
-      })) as State;
+        this.log.error('Sync box is offline', e);
+        throw e;
+      });
   }
 
   public async updateExecution(execution: Partial<Execution>): Promise<void> {

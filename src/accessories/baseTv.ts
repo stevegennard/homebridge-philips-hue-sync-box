@@ -32,6 +32,7 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     ['music', 2],
     ['game', 3],
     ['passthrough', 4],
+    ['powersave', 5],
   ]);
 
   protected readonly numberToMode: Map<number, string> = new Map([
@@ -39,6 +40,7 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     [2, 'music'],
     [3, 'game'],
     [4, 'passthrough'],
+    [5, 'powersave'],
   ]);
 
   protected constructor(
