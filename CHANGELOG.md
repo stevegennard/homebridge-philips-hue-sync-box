@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.0...v1.1.1) (2025-01-20)
+
+### Bug Fixes
+
+* TV Accessories stay on when off mode is set to passthrough ([bb36f91](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bb36f91c4ae7f70d474c0846cc57494124fd2ac1))
+
 ## [1.1.0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.0.8...v1.1.0) (2025-01-20)
 
 ### Features
