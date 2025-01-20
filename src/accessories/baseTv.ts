@@ -61,9 +61,16 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
       .getCharacteristic(this.platform.api.hap.Characteristic.RemoteKey)
       .onSet(this.handleRemoteButton.bind(this));
 
-    const name: string =
-      this.mainAccessory?.context[this.getConfiguredNamePropertyName()] ??
-      state.device.name;
+    let name;
+    if (this.platform.config[this.getConfiguredNamePropertyName()]) {
+      name = this.platform.config[this.getConfiguredNamePropertyName()];
+    } else if (
+      this.mainAccessory?.context[this.getConfiguredNamePropertyName()]
+    ) {
+      name = this.mainAccessory?.context[this.getConfiguredNamePropertyName()];
+    } else {
+      name = this.state.device.name;
+    }
     this.service
       .getCharacteristic(this.platform.api.hap.Characteristic.ConfiguredName)
       .onSet(this.handleConfiguredNameChange.bind(this));
@@ -74,6 +81,16 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
   }
 
   protected handleConfiguredNameChange(value: CharacteristicValue) {
+    if (this.platform.config[this.getConfiguredNamePropertyName()]) {
+      this.platform.log.warn(
+        this.getConfiguredNamePropertyName() +
+          ' is set in' +
+          'the config, cannot be changed by HomeKit. Please change it in the' +
+          'Homebridge config. Alternatively remove the config and manually' +
+          'configure in HomeKit (not recommended).'
+      );
+      return;
+    }
     this.platform.log.debug(
       this.getConfiguredNamePropertyName() + ' name changed to ' + value
     );

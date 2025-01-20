@@ -26,10 +26,22 @@
         "default": "video",
         "description": "The mode that is used when switching the Sync Box on via HomeKit. Possible values are 'video', 'music', 'game' or 'lastSyncMode'.",
         "oneOf": [
-          { "title": "Video", "enum": ["video"] },
-          { "title": "Music", "enum": ["music"] },
-          { "title": "Game", "enum": ["game"] },
-          { "title": "Last Sync Mode", "enum": ["lastSyncMode"] }
+          {
+            "title": "Video",
+            "enum": ["video"]
+          },
+          {
+            "title": "Music",
+            "enum": ["music"]
+          },
+          {
+            "title": "Game",
+            "enum": ["game"]
+          },
+          {
+            "title": "Last Sync Mode",
+            "enum": ["lastSyncMode"]
+          }
         ]
       },
       "defaultOffMode": {
@@ -39,8 +51,14 @@
         "default": "passthrough",
         "description": "The mode that is used when switching the Sync Box off via HomeKit. Possible values are 'powersave' or 'passthrough'.",
         "oneOf": [
-          { "title": "Passthrough", "enum": ["passthrough"] },
-          { "title": "Power Save", "enum": ["powersave"] }
+          {
+            "title": "Passthrough",
+            "enum": ["passthrough"]
+          },
+          {
+            "title": "Power Save",
+            "enum": ["powersave"]
+          }
         ]
       },
       "baseAccessory": {
@@ -49,10 +67,25 @@
         "default": "lightbulb",
         "required": true,
         "oneOf": [
-          { "title": "Lightbulb", "enum": ["lightbulb"] },
-          { "title": "Switch", "enum": ["switch"] },
-          { "title": "None", "enum": ["none"] }
+          {
+            "title": "Lightbulb",
+            "enum": ["lightbulb"]
+          },
+          {
+            "title": "Switch",
+            "enum": ["switch"]
+          },
+          {
+            "title": "None",
+            "enum": ["none"]
+          }
         ]
+      },
+      "baseAccessoryName": {
+        "title": "Set name for Base Accessory",
+        "type": "string",
+        "required": false,
+        "description": "Sets custom name for the Base Accessory. Overwrites names configured HomeKit."
       },
       "tvAccessory": {
         "title": "Enable HDMI TV",
@@ -60,6 +93,12 @@
         "default": false,
         "required": false,
         "description": "Enables a TV Accessory for switching the inputs of the Sync Box."
+      },
+      "tvAccessoryConfiguredName": {
+        "title": "Set name for the HDMI TV",
+        "type": "string",
+        "required": false,
+        "description": "Sets custom name for the HDMI TV. Overwrites names configured HomeKit."
       },
       "tvAccessoryType": {
         "title": "HDMI TV HomeKit Type",
@@ -86,15 +125,33 @@
         "required": false,
         "description": "Enables a TV Accessory for switching the modes of the Sync Box."
       },
+      "modeTvAccessoryConfiguredName": {
+        "title": "Set name for Mode TV",
+        "type": "string",
+        "required": false,
+        "description": "Sets custom name for the Mode TV. Overwrites names configured HomeKit."
+      },
       "modeTvAccessoryType": {
         "title": "Mode TV HomeKit Type",
         "type": "string",
         "default": "tv",
         "oneOf": [
-          { "title": "TV", "enum": ["tv"] },
-          { "title": "Set Top Box", "enum": ["settopbox"] },
-          { "title": "TV Stick", "enum": ["tvstick"] },
-          { "title": "Audio Receiver", "enum": ["audioreceiver"] }
+          {
+            "title": "TV",
+            "enum": ["tv"]
+          },
+          {
+            "title": "Set Top Box",
+            "enum": ["settopbox"]
+          },
+          {
+            "title": "TV Stick",
+            "enum": ["tvstick"]
+          },
+          {
+            "title": "Audio Receiver",
+            "enum": ["audioreceiver"]
+          }
         ]
       },
       "modeTvAccessoryLightbulb": {
@@ -111,15 +168,33 @@
         "required": false,
         "description": "Enables a TV Accessory for switching the intensity of the Sync Box."
       },
+      "intensityTvName": {
+        "title": "Set name for Intensity TV",
+        "type": "string",
+        "required": false,
+        "description": "Sets custom name for the Intensity TV. Overwrites names configured HomeKit."
+      },
       "intensityTvAccessoryType": {
         "title": "Intensity TV HomeKit Type",
         "type": "string",
         "default": "tv",
         "oneOf": [
-          { "title": "TV", "enum": ["tv"] },
-          { "title": "Set Top Box", "enum": ["settopbox"] },
-          { "title": "TV Stick", "enum": ["tvstick"] },
-          { "title": "Audio Receiver", "enum": ["audioreceiver"] }
+          {
+            "title": "TV",
+            "enum": ["tv"]
+          },
+          {
+            "title": "Set Top Box",
+            "enum": ["settopbox"]
+          },
+          {
+            "title": "TV Stick",
+            "enum": ["tvstick"]
+          },
+          {
+            "title": "Audio Receiver",
+            "enum": ["audioreceiver"]
+          }
         ]
       },
       "intensityTvAccessoryLightbulb": {
@@ -136,15 +211,33 @@
         "required": false,
         "description": "Enables a TV Accessory for switching the entertainment area of the Sync Box."
       },
+      "entertainmentTvAccessoryConfiguredName": {
+        "title": "Set name for Entertainment Area TV",
+        "type": "string",
+        "required": false,
+        "description": "Sets custom name for the Entertainment Area TV. Overwrites names configured HomeKit."
+      },
       "entertainmentTvAccessoryType": {
         "title": "Entertainment Area TV HomeKit Type",
         "type": "string",
         "default": "tv",
         "oneOf": [
-          { "title": "TV", "enum": ["tv"] },
-          { "title": "Set Top Box", "enum": ["settopbox"] },
-          { "title": "TV Stick", "enum": ["tvstick"] },
-          { "title": "Audio Receiver", "enum": ["audioreceiver"] }
+          {
+            "title": "TV",
+            "enum": ["tv"]
+          },
+          {
+            "title": "Set Top Box",
+            "enum": ["settopbox"]
+          },
+          {
+            "title": "TV Stick",
+            "enum": ["tvstick"]
+          },
+          {
+            "title": "Audio Receiver",
+            "enum": ["audioreceiver"]
+          }
         ]
       },
       "entertainmentTvAccessoryLightbulb": {
