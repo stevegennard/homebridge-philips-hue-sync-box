@@ -19,6 +19,12 @@ All notable changes to this project will be documented in this file. See
 
 * set fault on accessory when sync box unavailable instead of crashing ([079f7cd](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/079f7cda4edd3f431422dd0530714865a8c810db))
 
+## [1.1.5](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.4...v1.1.5) (2025-01-21)
+
+### Bug Fixes
+
+* Removes non functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([25deadc](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/25deadc5ef3f632d7e96074fc7646cd20d1ddd98))
+
 ## [1.1.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.3...v1.1.4) (2025-01-20)
 
 ### Bug Fixes
