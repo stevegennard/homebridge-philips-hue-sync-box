@@ -396,6 +396,7 @@ The response is a JSON response, the following properties are included:
 	"presets": {}
 }
 ```
+
 ### POST
 
 Use the `state` endpoint to set state of the Sync Box. The HTTP method has to be `POST`:
