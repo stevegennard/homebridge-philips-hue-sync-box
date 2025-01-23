@@ -21,12 +21,14 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B50603%2Fgithub.com%2Fjabrown93%2Fhomebridge-philips-hue-sync-box.svg?type=shield&issueType=license)](https://app.fossa.com/projects/custom%2B50603%2Fgithub.com%2Fjabrown93%2Fhomebridge-philips-hue-sync-box?ref=badge_shield&issueType=license)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B50603%2Fgithub.com%2Fjabrown93%2Fhomebridge-philips-hue-sync-box.svg?type=shield&issueType=security)](https://app.fossa.com/projects/custom%2B50603%2Fgithub.com%2Fjabrown93%2Fhomebridge-philips-hue-sync-box?ref=badge_shield&issueType=security)
 
-<!-- omit in toc -->
-
 ## Table of Contents
 
 - [Installation](#installation)
-- [Prepare Sync Box](#prepare-sync-box)
+  - [Plugin Installation](#plugin-installation)
+    - [Homebridge UI (Recommended)](#homebridge-ui-recommended)
+    - [Manual](#manual)
+  - [Get Sync Box Access Token](#get-sync-box-access-token)
+  - [Multiple Sync Boxes](#multiple-sync-boxes)
 - [Configuration](#configuration)
 - [API](#api)
   - [GET](#get)
@@ -37,6 +39,11 @@
   - [Build Plugin](#build-plugin)
   - [Link To Homebridge](#link-to-homebridge)
   - [Watch For Changes and Build Automatically](#watch-for-changes-and-build-automatically)
+- [Help! I'm Having Issues!](#help-im-having-issues)
+- [I Have an Idea for a New Feature!](#i-have-an-idea-for-a-new-feature)
+- [I Want to Contribute!](#i-want-to-contribute)
+- [Code of Conduct](#code-of-conduct)
+- [License](#license)
 - [Credit](#credit)
 
 Homebridge plugin for the Philips Hue Sync Box.
@@ -75,13 +82,24 @@ same pin as for the plugin).
 
 ## Installation
 
-Install the plugin via npm:
+### Plugin Installation
 
-```bash
-npm install homebridge-philips-hue-sync-box -g
-```
+#### Homebridge UI (Recommended)
 
-## Prepare Sync Box
+1. Open
+   the [Homebridge UI](https://github.com/homebridge/homebridge/wiki/Install-Homebridge-on-macOS#complete-login-to-the-homebridge-ui).
+2. Open the Plugins tab, search for `homebridge-philips-hue-sync-box`, and install the plugin.
+3. Get the Sync Box access token as described [below](#get-sync-box-access-token).
+4. Configure the plugin via the Homebridge Config UI
+
+#### Manual
+
+1. Install the plugin using `hb-service add homebridge-philips-hue-sync-box` or
+   `npm i -g homebridge-philips-hue-sync-box` if you are not using hb-service
+2. Get the Sync Box access token as described [below](#get-sync-box-access-token).
+3. Configure the plugin in Homebridge's config.json file, see [Configuration](#configuration) for the details.
+
+### Get Sync Box Access Token
 
 You have to create new credentials to communicate with the Philips Hue Sync Box:
 
@@ -99,9 +117,8 @@ You have to create new credentials to communicate with the Philips Hue Sync Box:
 Hints:
 
 - One way to do this is to enter the following into the Terminal:
-  `curl -H "Content-Type: application/json" -X POST -d '{"appName": "homebridge", "appSecret":"MDAwMTExMDAwMTExMDAwMTExMDAwMTExMDAwMTExMDA=", "instanceName": "homebridge"}' https://<SYNC-BOX-IP>/api/v1/registrations`,
-  replacing `<SYNC-BOX-IP>` with the IP address of your Sync Box. If an issue occurs due to a certificate error, add the
-  parameter `-k` to the cURL command.
+  `curl -H -k "Content-Type: application/json" -X POST -d '{"appName": "homebridge", "appSecret":"MDAwMTExMDAwMTExMDAwMTExMDAwMTExMDAwMTExMDA=", "instanceName": "homebridge"}' https://<SYNC-BOX-IP>/api/v1/registrations`,
+  replacing `<SYNC-BOX-IP>` with the IP address of your Sync Box.
 - Another way may be to use tools like **Postman**. Set the request method to `POST` and enter
   `https://<SYNC-BOX-IP>/api/v1/registrations` as the request URL (replace `<SYNC-BOX-IP>` with the IP address of your
   Sync Box). Next, open the tab "Body", set the type to "raw" and select "JSON" as the content type in the dropdown.
@@ -111,24 +128,25 @@ Hints:
   due to a certificate error, you can disable certificate verification in Postman. Go to the global settings, open the
   tab "General" and disable the toggle switch for "SSL certificate verification".
 
-## Multiple Sync Boxes
+### Multiple Sync Boxes
 
-**WARNING: If you currently have a sync box setup, setting a `uuidSeed` will reset them. You may leave this config blank
-on at most 1 Sync Box.**
+**WARNING: If you currently have a sync box setup, setting a `uuidSeed` will remove all of the accessories and create
+new ones. You may leave this config blank on at most 1 Sync Box.**
 
-In order to support multiple Sync Boxes, you have to run multiple instances of this plugin. Each instance has to have a
+In order to support multiple Sync Boxes, you have to run multiple instances of this plugin. Each instance must have a
 unique `uuidSeed` value. This value is used to differentiate the accessories in HomeKit. If you have existing
 accessories, changing this value will cause them to be removed and re-created. HomeKit will consider these as new
 accessories and you will need to setup them up again.
 
 You will need to add multiple platforms to your `config.json` file. This can be found at
-`https://<homebridge_host>/config` in the UI or `<homebridge_config_dir>/config.json`. Each platform has to have a
+`https://<homebridge_host>/config` in the UI or `<homebridge_config_dir>/config.json`. Each platform must have a
 a `platform` value of `PhilipsHueSyncBoxPlatform`.
 
 **Important Notes**
 
-- The `uuidSeed` value must be unique for each Sync Box. `''` is a valid value for one Sync Box.
-- Changing the `uuidSeed` value will cause the accessories to be removed and re-created. HomeKit will consider these as new accessories and you will need to setup them up again.
+- The `uuidSeed` value must be unique for each Sync Box. `""` is a valid value for at most one Sync Box.
+- Changing the `uuidSeed` value will cause the accessories to be removed and re-created. HomeKit will consider these as
+  new accessories and you will need to setup them up again and remove the unresponsive ones.
 - The `name` value should be unique for each Sync Box, this improves the logging output.
 
 ```json5
@@ -138,16 +156,16 @@ a `platform` value of `PhilipsHueSyncBoxPlatform`.
     {
       platform: 'PhilipsHueSyncBoxPlatform',
       name: 'LivingRoomPhilipsHueSyncBoxPlatform',
-      syncBoxIpAddress: '<SYNC-BOX-IP-ADDRESS>',
-      syncBoxApiAccessToken: '<ACCESS-TOKEN>',
+      syncBoxIpAddress: '<SYNC-BOX-1-IP-ADDRESS>',
+      syncBoxApiAccessToken: '<SYNC-BOX-1-ACCESS-TOKEN>',
       uuidSeed: 'LivingRoom',
       // rest of config
     },
     {
       platform: 'PhilipsHueSyncBoxPlatform',
       name: 'BedroomPhilipsHueSyncBoxPlatform',
-      syncBoxIpAddress: '<SYNC-BOX-IP-ADDRESS>',
-      syncBoxApiAccessToken: '<ACCESS-TOKEN>',
+      syncBoxIpAddress: '<SYNC-BOX-2-IP-ADDRESS>',
+      syncBoxApiAccessToken: '<SYNC-BOX-2-ACCESS-TOKEN>',
       uuidSeed: 'Bedroom',
       // rest of config
     },
@@ -159,33 +177,32 @@ a `platform` value of `PhilipsHueSyncBoxPlatform`.
 
 | **Name**                                 | **Description**                                                                                                                                                                                                                                                                            | **Type** | **Default**   | **Required** | **Allowed Values**                            |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ------------- | ------------ | --------------------------------------------- |
-| `syncBoxIpAddress`                       | The IP address of your Philips Hue Sync Box.                                                                                                                                                                                                                                               | string   | None          | Yes          |                                               |
-| `syncBoxApiAccessToken`                  | The access token that you get while registration.                                                                                                                                                                                                                                          | string   | None          | Yes          |                                               |
+| `syncBoxIpAddress`                       | The IP address of your Philips Hue Sync Box.                                                                                                                                                                                                                                               | string   |               | Yes          |                                               |
+| `syncBoxApiAccessToken`                  | The access token that you get while registration.                                                                                                                                                                                                                                          | string   |               | Yes          |                                               |
 | `defaultOnMode`                          | The mode that is used when switching the Sync Box on via HomeKit. Possible values are `video`, `music`, `game` or `lastSyncMode`.                                                                                                                                                          | string   | `video`       | No           | `video`, `music`, `game`, `lastSyncMode`      |
 | `defaultOffMode`                         | The mode that is used when switching the Sync Box off via HomeKit. Possible values are `powersave` or `passthrough`.                                                                                                                                                                       | string   | `passthrough` | No           | `powersave`, `passthrough`                    |
 | `baseAccessory`                          | Determines the type of the base accessory for the Sync Box. Possible values are `lightbulb`, `switch` or `none`. If `none` is used, no base accessory is exposed.                                                                                                                          | string   | `lightbulb`   | No           | `lightbulb`, `switch`, `none`                 |
-| `baseAccessoryName`                      | Sets custom name for the Base Accessory. Overwrites names configured HomeKit.                                                                                                                                                                                                              | string   | None          | No           |                                               |
 | `tvAccessory`                            | Enables a TV Accessory for switching the inputs of the Sync Box.                                                                                                                                                                                                                           | boolean  | `false`       | No           |                                               |
-| `tvAccessoryConfiguredName`              | Sets custom name for the HDMI Input TV. Overwrites names configured HomeKit.                                                                                                                                                                                                               | string   | None          | No           |                                               |
+| `tvAccessoryConfiguredName`              | Sets custom name for the HDMI Input TV. Overwrites names configured HomeKit.                                                                                                                                                                                                               | string   |               | No           |                                               |
 | `tvAccessoryType`                        | Type of icon that the Apple Home app should show. Possible values are `tv`, `settopbox`, `tvstick` or `audioreceiver`.                                                                                                                                                                     | string   | `tv`          | No           | `tv`, `settopbox`, `tvstick`, `audioreceiver` |
 | `tvAccessoryLightbulb`                   | Enables an integrated lightbulb for the TV Accessory for switching the inputs.                                                                                                                                                                                                             | boolean  | `false`       | No           |                                               |
 | `modeTvAccessory`                        | Enables a TV Accessory for switching the modes (`video`, `music`, `game`) of the Sync Box.                                                                                                                                                                                                 | boolean  | `false`       | No           |                                               |
-| `modeTvAccessoryConfiguredName`          | Sets custom name for the Mode TV. Overwrites names configured HomeKit.                                                                                                                                                                                                                     | string   | None          | No           |                                               |
+| `modeTvAccessoryConfiguredName`          | Sets custom name for the Mode TV. Overwrites names configured HomeKit.                                                                                                                                                                                                                     | string   |               | No           |                                               |
 | `modeTvAccessoryType`                    | Type of icon that the Apple Home app should show. Possible values are `tv`, `settopbox`, `tvstick` or `audioreceiver`.                                                                                                                                                                     | string   | `tv`          | No           | `tv`, `settopbox`, `tvstick`, `audioreceiver` |
 | `modeTvAccessoryLightbulb`               | Enables an integrated lightbulb for the TV Accessory for switching the modes.                                                                                                                                                                                                              | boolean  | `false`       | No           |                                               |
 | `intensityTvAccessory`                   | Enables a TV Accessory for switching the intensity (`subtle`, `moderate`, `high`, `intense`) of the Sync Box.                                                                                                                                                                              | boolean  | `false`       | No           |                                               |
-| `intensityTvAccessoryConfiguredName`     | Sets custom name for the Intensity TV. Overwrites names configured HomeKit.                                                                                                                                                                                                                | string   | None          | No           |                                               |
+| `intensityTvAccessoryConfiguredName`     | Sets custom name for the Intensity TV. Overwrites names configured HomeKit.                                                                                                                                                                                                                | string   |               | No           |                                               |
 | `intensityTvAccessoryType`               | Type of icon that the Apple Home app should show. Possible values are `tv`, `settopbox`, `tvstick` or `audioreceiver`.                                                                                                                                                                     | string   | `tv`          | No           | `tv`, `settopbox`, `tvstick`, `audioreceiver` |
 | `intensityTvAccessoryLightbulb`          | Enables an integrated lightbulb for the TV Accessory for switching the intensity.                                                                                                                                                                                                          | boolean  | `false`       | No           |                                               |
 | `entertainmentTvAccessory`               | Enables a TV Accessory for switching the entertainment area of the Sync Box.                                                                                                                                                                                                               | boolean  | `false`       | No           |                                               |
-| `entertainmentTvAccessoryConfiguredName` | Sets custom name for the Entertainment TV. Overwrites names configured HomeKit.                                                                                                                                                                                                            | string   | None          | No           |                                               |
+| `entertainmentTvAccessoryConfiguredName` | Sets custom name for the Entertainment TV. Overwrites names configured HomeKit.                                                                                                                                                                                                            | string   |               | No           |                                               |
 | `entertainmentTvAccessoryType`           | Type of icon that the Apple Home app should show. Possible values are `tv`, `settopbox`, `tvstick` or `audioreceiver`.                                                                                                                                                                     | string   | `tv`          | No           | `tv`, `settopbox`, `tvstick`, `audioreceiver` |
 | `entertainmentTvAccessoryLightbulb`      | Enables an integrated lightbulb for the TV Accessory for switching the entertainment areas.                                                                                                                                                                                                | boolean  | `false`       | No           |                                               |
 | `updateIntervalInSeconds`                | The interval in seconds in which the plugin polls the Sync Box for updates.                                                                                                                                                                                                                | integer  | `5`           | No           |                                               |
-| `uuidSeed`                               | Only set this if you're running multiple instances of this plugin to differentiate the accessories. If you have existing accessories, changing this will cause them to be removed and re-created. HomeKit will consider these as new accessories and you will need to setup them up again. | string   | None          | No           |                                               |
+| `uuidSeed`                               | Only set this if you're running multiple instances of this plugin to differentiate the accessories. If you have existing accessories, changing this will cause them to be removed and re-created. HomeKit will consider these as new accessories and you will need to setup them up again. | string   |               | No           |                                               |
 | `apiServerEnabled`                       | Enables an HTTP API for controlling the Sync Box.                                                                                                                                                                                                                                          | boolean  | `false`       | No           |                                               |
 | `apiServerPort`                          | The port that the API (if enabled) runs on. Defaults to `40220`, please change this setting if the port is already in use.                                                                                                                                                                 | integer  | `40220`       | No           |                                               |
-| `apiServerToken`                         | The token that has to be included in each request of the API. Is required if the API is enabled and has no default value.                                                                                                                                                                  | string   | None          | No           |                                               |
+| `apiServerToken`                         | The token that has to be included in each request of the API. Is required if the API is enabled and has no default value.                                                                                                                                                                  | string   |               | No           |                                               |
 
 ```json
 {
@@ -198,17 +215,26 @@ a `platform` value of `PhilipsHueSyncBoxPlatform`.
       "defaultOffMode": "passthrough",
       "baseAccessory": "lightbulb",
       "tvAccessory": false,
+      "tvAccessoryConfiguredName": "Sync Box Input",
       "tvAccessoryType": "tv",
       "tvAccessoryLightbulb": false,
       "modeTvAccessory": false,
+      "modeTvAccessoryConfiguredName": "Sync Box Mode",
       "modeTvAccessoryType": "tv",
       "modeTvAccessoryLightbulb": false,
       "intensityTvAccessory": false,
+      "intensityTvAccessoryConfiguredName": "Sync Box Intensity",
       "intensityTvAccessoryType": "tv",
       "intensityTvAccessoryLightbulb": false,
       "entertainmentTvAccessory": false,
+      "entertainmentTvAccessoryConfiguredName": "Sync Box Area",
       "entertainmentTvAccessoryType": "tv",
-      "entertainmentTvAccessoryLightbulb": false
+      "entertainmentTvAccessoryLightbulb": false,
+      "updateIntervalInSeconds": 5,
+      "uuidSeed": "livingroom",
+      "apiServerEnabled": false,
+      "apiServerPort": 40220,
+      "apiServerToken": "token"
     }
   ]
 }
@@ -241,43 +267,10 @@ Use the `state` endpoint to retrieve the state of the Sync Box. The HTTP method 
 http://<YOUR-HOST-IP-ADDRESS>:<apiPort>/state
 ```
 
-The response is a JSON response, the following properties are included:
+The response is a JSON object, looking like this:
 
 ```
 {
-	"device": {
-		"name": "Living Room Sync Box",
-		"deviceType": "HSB2",
-		"uniqueId": "ID2",
-		"apiLevel": 10,
-		"firmwareVersion": "2.4.1",
-		"buildNumber": 784734914,
-		"termsAgreed": true,
-		"wifiState": "wan",
-		"ipAddress": "192.168.1.3",
-		"wifi": {
-			"ssid": "Guest Network",
-			"strength": 4
-		},
-		"lastCheckedUpdate": "2025-01-07T10:04:23Z",
-		"updatableBuildNumber": null,
-		"updatableFirmwareVersion": null,
-		"update": {
-			"autoUpdateEnabled": true,
-			"autoUpdateTime": 10
-		},
-		"ledMode": 1,
-		"action": "none",
-		"pushlink": "idle",
-		"capabilities": {
-			"maxIrCodes": 24,
-			"maxPresets": 16
-		},
-		"beta": false,
-		"overheating": false,
-		"undervolt": false,
-		"bluetooth": false
-	},
 	"hue": {
 		"bridgeUniqueId": "ID1",
 		"bridgeIpAddress": "192.168.1.2",
@@ -318,82 +311,7 @@ The response is a JSON response, the following properties are included:
 			"palette": "melancholicEnergetic"
 		},
 		"preset": null
-	},
-	"hdmi": {
-		"input1": {
-			"name": "HDMI 1",
-			"type": "generic",
-			"status": "unplugged",
-			"lastSyncMode": "video"
-		},
-		"input2": {
-			"name": "HDMI 2",
-			"type": "generic",
-			"status": "unplugged",
-			"lastSyncMode": "video"
-		},
-		"input3": {
-			"name": "HDMI 3",
-			"type": "generic",
-			"status": "unplugged",
-			"lastSyncMode": "video"
-		},
-		"input4": {
-			"name": "AVR",
-			"type": "avreceiver",
-			"status": "linked",
-			"lastSyncMode": "video"
-		},
-		"output": {
-			"name": "HDMI Out",
-			"type": "generic",
-			"status": "linked",
-			"lastSyncMode": "video"
-		},
-		"contentSpecs": "3840 x 2160 @ 60000 - SDR",
-		"videoSyncSupported": true,
-		"audioSyncSupported": true
-	},
-	"behavior": {
-		"inactivePowersave": 20,
-		"cecPowersave": 1,
-		"usbPowersave": 1,
-		"hpdInputSwitch": 1,
-		"hpdOutputEnableMs": 1500,
-		"arcBypassMode": 1,
-		"input1": {
-			"cecInputSwitch": 1,
-			"hpdInputPortSwitch": 1,
-			"linkAutoSync": 0
-		},
-		"input2": {
-			"cecInputSwitch": 1,
-			"hpdInputPortSwitch": 1,
-			"linkAutoSync": 0
-		},
-		"input3": {
-			"cecInputSwitch": 1,
-			"hpdInputPortSwitch": 1,
-			"linkAutoSync": 0
-		},
-		"input4": {
-			"cecInputSwitch": 1,
-			"hpdInputPortSwitch": 1,
-			"linkAutoSync": 0
-		}
-	},
-	"ir": {
-		"defaultCodes": true,
-		"scan": {
-			"scanning": false,
-			"code": null,
-			"codes": []
-		},
-		"codes": {}
-	},
-	"registrations": {
-	},
-	"presets": {}
+	}
 }
 ```
 
@@ -457,11 +375,13 @@ The body of the request has to be JSON and can contain any/some/all of the follo
 
 ### Setup Development Environment
 
-To develop Homebridge SmartRent you must have Node.js 12 or later installed, and a modern code editor such as [VS Code](https://code.visualstudio.com/). This plugin template uses [TypeScript](https://www.typescriptlang.org/) to make development easier and comes with pre-configured settings for [VS Code](https://code.visualstudio.com/) and ESLint. If you are using VS Code install these extensions:
+To develop Homebridge Philips Hue Sync Bridge you must have Node.js 18 or later installed, and a modern code editor such
+as [VS Code](https://code.visualstudio.com/). This plugin uses [TypeScript](https://www.typescriptlang.org/) to
+make development easier and comes with pre-configured settings for Prettier and ESLint. If you are using VS Code install
+these extensions:
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
 ### Install Development Dependencies
 
@@ -475,7 +395,8 @@ npm install
 
 ### Build Plugin
 
-TypeScript needs to be compiled into JavaScript before it can run. The following command will compile the contents of your [`src`](./src) directory and put the resulting code into the `dist` folder.
+TypeScript needs to be compiled into JavaScript before it can run. The following command will compile the contents of
+your [`src`](./src) directory and put the resulting code into the `dist` folder.
 
 ```sh
 
@@ -503,7 +424,8 @@ homebridge -D
 
 ### Watch For Changes and Build Automatically
 
-If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between changes you can run:
+If you want to have your code compile automatically as you make changes, and restart Homebridge automatically between
+changes you can run:
 
 ```sh
 
@@ -511,7 +433,38 @@ npm run watch
 
 ```
 
-This will launch an instance of Homebridge in debug mode which will restart every time you make a change to the source code. It will load the config stored in the default location under `~/.homebridge`. You may need to stop other running instances of Homebridge while using this command to prevent conflicts. You can adjust the Homebridge startup command in the [`nodemon.json`](./nodemon.json) file.
+This will launch an instance of Homebridge in debug mode which will restart every time you make a change to the source
+code. It will load the config stored in the default location under `~/.homebridge`. You may need to stop other running
+instances of Homebridge while using this command to prevent conflicts. You can adjust the Homebridge startup command in
+the [`nodemon.json`](./nodemon.json) file.
+
+## Help! I'm Having Issues!
+
+If you are having issues with this plugin, please check the following:
+
+- [Homebridge Basic Troubleshooting](https://github.com/homebridge/homebridge/wiki/Basic-Troubleshooting)
+
+If you're still having issues, let us know by opening
+an [issue](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/new/choose) on GitHub. Please fill out
+the template with as much information as possible to help us help you.
+
+## I Have an Idea for a New Feature!
+
+If you have a feature request, please checkout our [Contribution](./CONTRIBUTING.md) guide and open
+a [feature request issue](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/new?template=feature-request.md)
+
+## I Want to Contribute!
+
+If you want to contribute to this project, please checkout our [Contribution](./CONTRIBUTING.md) guide. We welcome
+contributions of all kinds!
+
+## Code of Conduct
+
+Please checkout our [Code of Conduct](./CODE_OF_CONDUCT.md) for more information.
+
+## License
+
+This project is licensed under the terms of the [MIT License](./LICENSE).
 
 ## Credit
 

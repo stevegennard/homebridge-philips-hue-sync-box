@@ -14,11 +14,6 @@ All notable changes to this project will be documented in this file. See
 * only use API object provided categories and make type config case insensitive ([bd01042](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bd010429dfcad52d1db340b6804fde78139e1a36))
 * Removes non functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([5349ef3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/5349ef3aa4e72f17ed8eedd05b428815bab0d8b9))
 
-### Bug Fixes
-
-* only use API object provided categories and make type config case insensitive ([bd01042](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bd010429dfcad52d1db340b6804fde78139e1a36))
-* Removes non functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([5349ef3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/5349ef3aa4e72f17ed8eedd05b428815bab0d8b9))
-
 ## [1.1.6](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.5...v1.1.6) (2025-01-22)
 
 ### Bug Fixes
@@ -29,7 +24,7 @@ All notable changes to this project will be documented in this file. See
 
 ### Bug Fixes
 
-* Removes non functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([25deadc](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/25deadc5ef3f632d7e96074fc7646cd20d1ddd98))
+* Removes non-functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([25deadc](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/25deadc5ef3f632d7e96074fc7646cd20d1ddd98))
 
 ## [1.1.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.3...v1.1.4) (2025-01-20)
 
