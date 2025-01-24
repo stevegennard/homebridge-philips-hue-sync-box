@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.2.0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.6...v1.2.0) (2025-01-23)
+## [1.2.0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.6...v1.2.0) (2025-01-24)
 
 ### Features
 
 * Support multiple instances of the plugin and multiple sync boxes ([#46](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/46)) ([949346b](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/949346be7bbee35f268f5aa8089b3dbd9b42b567))
-
-### Bug Fixes
-
-* only use API object provided categories and make type config case insensitive ([bd01042](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/bd010429dfcad52d1db340b6804fde78139e1a36))
-* Removes non functional "Base Accessory Name" config, Homebridge cannot sync this to HomeKit ([#110](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/110)) ([5349ef3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/5349ef3aa4e72f17ed8eedd05b428815bab0d8b9))
 
 ## [1.1.6](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.5...v1.1.6) (2025-01-22)
 
