@@ -102,7 +102,7 @@
     "node-fetch": "^3.3.2"
   },
   "lint-staged": {
-    "*.{js,mjs,ts,json,md}": [
+    "*.{js,mjs,ts,json,md,yml,json}": [
       "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored",
       "prettier --write"
     ]
