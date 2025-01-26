@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.2.0...v1.2.1) (2025-01-26)
+
+### Bug Fixes
+
+* Enforce valid config using Homebridge Config UI ([5c1bd37](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/5c1bd37efcbf99710ebaa4af5419b4e7a47878ed))
+
 ## [1.2.0](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.1.6...v1.2.0) (2025-01-24)
 
 ### Features
