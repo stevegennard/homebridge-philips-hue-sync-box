@@ -3,6 +3,7 @@
   "pluginType": "platform",
   "headerDisplay": "Homebridge plugin for the Philips Hue Sync Box. Important: TV accessories must be added to HomeKit manually, the logs show the pin for adding them (should be the same pin as for the plugin).",
   "footerDisplay": "For help please visit the [GitHub repository](https://github.com/jabrown93/homebridge-philips-hue-sync-box).",
+  "strictValidation": true,
   "schema": {
     "type": "object",
     "properties": {
@@ -252,7 +253,7 @@
         "title": "UUID Seed",
         "type": "string",
         "required": false,
-        "description": "Only set this if you're running multiple instances of this plugin to differentiate the accessories. If you have existing accessories, changing this will cause them to be removed and re-created. HomeKit will consider these as new accessories and you will need to setup them up again."
+        "description": "This can be any string and must unique to this instance of the plugin. Only set this if you're running multiple instances of this plugin to differentiate the accessories. If you have existing accessories, changing this will cause them to be removed and re-created. HomeKit will consider these as new accessories and you will need to setup them up again."
       },
       "apiServerEnabled": {
         "title": "Enable API",
