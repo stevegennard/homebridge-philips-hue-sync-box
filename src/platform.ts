@@ -125,6 +125,12 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
 
   async discoverDevices() {
     const state = await this.client.getState();
+    if (!state) {
+      throw new Error(
+        'Could not get state from sync box on initialization. This error is not recoverable, ' +
+          'ensure the sync box is online and the API token is correct and restart the plugin.'
+      );
+    }
     this.log.debug('Discovered state:', state);
     const accessories = this.discoverAccessories(state);
     const uuids = accessories.map(accessory => {
@@ -185,8 +191,12 @@ export class HueSyncBoxPlatform implements DynamicPlatformPlugin {
     }, this.config.updateIntervalInSeconds * 1000);
   }
 
-  async update(state: State) {
+  async update(state: State | null) {
     this.log.debug('Updating state called');
+    if (!state) {
+      this.log.warn('Could not get state from sync box. Skipping update.');
+      return;
+    }
     for (const device of this.devices) {
       this.log.debug('Updating device:', device.accessory.displayName);
       device.update(state);

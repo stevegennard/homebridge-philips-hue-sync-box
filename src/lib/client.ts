@@ -18,7 +18,7 @@ export class SyncBoxClient {
   private readonly LOCK_KEY = 'sync-box';
   private readonly LOCK_OPTIONS: AsyncLockOptions = {
     timeout: 10000,
-    maxExecutionTime: 5000,
+    maxExecutionTime: 15000,
   };
 
   private readonly lock: AsyncLock;
@@ -30,7 +30,7 @@ export class SyncBoxClient {
     this.lock = new AsyncLock();
   }
 
-  public async getState(): Promise<State> {
+  public async getState(): Promise<State | null> {
     return await this.lock
       .acquire(
         this.LOCK_KEY,
@@ -39,7 +39,7 @@ export class SyncBoxClient {
       )
       .catch(e => {
         this.log.error('Sync box is offline', e);
-        throw e;
+        return null;
       });
   }
 
