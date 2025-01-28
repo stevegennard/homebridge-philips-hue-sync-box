@@ -1,6 +1,7 @@
 import { SyncBoxDevice } from './base.js';
 import {
   type CharacteristicValue,
+  HAPStatus,
   PlatformAccessory,
   Service,
 } from 'homebridge';
@@ -272,6 +273,10 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
 
   public update(state: State): void {
     super.update(state);
+    if (!state) {
+      this.setLightbulbUnresponsive();
+      return;
+    }
     this.updateTv();
     this.updateLightbulb();
   }
@@ -294,6 +299,19 @@ export abstract class BaseTvDevice extends SyncBoxDevice {
     this.lightbulbService.updateCharacteristic(
       this.platform.api.hap.Characteristic.Brightness,
       Math.round((this.state.execution.brightness / 200.0) * 100)
+    );
+  }
+
+  private setLightbulbUnresponsive(): void {
+    if (!this.lightbulbService) {
+      return;
+    }
+    this.platform.log.debug('Updated state to ' + this.state.execution.mode);
+    this.lightbulbService.updateCharacteristic(
+      this.platform.api.hap.Characteristic.On,
+      new this.platform.api.hap.HapStatusError(
+        HAPStatus.SERVICE_COMMUNICATION_FAILURE
+      )
     );
   }
 
