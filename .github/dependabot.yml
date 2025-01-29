@@ -14,9 +14,19 @@ updates:
     groups:
       production-dependencies:
         dependency-type: 'production'
+        update-types:
+          - 'minor'
+          - 'patch'
+      production-dependencies-major-updates:
+        dependency-type: 'production'
+        update-types:
+          - 'major'
       development-dependencies:
         dependency-type: 'development'
-    assignees:
-      - 'jabrown93'
-    reviewers:
-      - 'jabrown93'
+        update-types:
+          - 'minor'
+          - 'patch'
+      development-dependencies-major-updates:
+        dependency-type: 'development'
+        update-types:
+          - 'major'
