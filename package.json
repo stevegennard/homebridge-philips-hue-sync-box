@@ -1,9 +1,24 @@
 {
   "name": "homebridge-philips-hue-sync-box",
-  "type": "module",
   "displayName": "Philips Hue Sync Box",
   "version": "1.2.3-beta.1",
   "description": "Homebridge plugin for the Philips Hue Sync Box.",
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge",
+    "homebridge-philips-hue-sync-box",
+    "philips-hue",
+    "hue"
+  ],
+  "homepage": "https://github.com/jabrown93/homebridge-philips-hue-sync-box#readme",
+  "bugs": {
+    "url": "https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jabrown93/homebridge-philips-hue-sync-box.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Jared Brown",
     "email": "npm@jaredbrown.io",
@@ -15,25 +30,7 @@
       "url": "https://github.com/lukasroegner"
     }
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/jabrown93/homebridge-philips-hue-sync-box#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jabrown93/homebridge-philips-hue-sync-box.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues"
-  },
-  "keywords": [
-    "homebridge-plugin",
-    "homebridge",
-    "homebridge-philips-hue-sync-box",
-    "philips-hue",
-    "hue"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
+  "type": "module",
   "main": "dist/index.js",
   "files": [
     "src",
@@ -41,10 +38,6 @@
     "config.schema.json",
     "CHANGELOG.md"
   ],
-  "engines": {
-    "node": "^18.20.4 || ^20.18.0 || ^22.10.0",
-    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
-  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "prettier": "prettier --check .",
@@ -62,6 +55,18 @@
     "prepare": "husky",
     "tsc": "tsc --noEmit",
     "setup-config": "if [ ! -f ./test/hbConfig/config.json ]; then cp ./test/hbConfig/config-template.json ./test/hbConfig/config.json; fi"
+  },
+  "lint-staged": {
+    "*.{js,mjs,ts,json,md,yml,json}": [
+      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "async-lock": "^1.4.1",
+    "fetch-retry": "^6.0.0",
+    "homebridge-lib": "^7.1.1",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
@@ -95,16 +100,11 @@
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.19.1"
   },
-  "dependencies": {
-    "async-lock": "^1.4.1",
-    "fetch-retry": "^6.0.0",
-    "homebridge-lib": "^7.1.1",
-    "node-fetch": "^3.3.2"
+  "engines": {
+    "homebridge": "^1.8.0 || ^2.0.0-beta.0",
+    "node": "^18.20.4 || ^20.18.0 || ^22.10.0"
   },
-  "lint-staged": {
-    "*.{js,mjs,ts,json,md,yml,json}": [
-      "eslint src/**.ts --fix --max-warnings=0 --no-warn-ignored",
-      "prettier --write"
-    ]
+  "publishConfig": {
+    "access": "public"
   }
 }
