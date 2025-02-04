@@ -2,6 +2,7 @@ import { Execution, State } from '../state.js';
 import {
   Characteristic,
   type CharacteristicValue,
+  HAPStatus,
   PlatformAccessory,
   Service,
   WithUUID,
@@ -122,8 +123,17 @@ export abstract class SyncBoxDevice {
     });
   }
 
-  public update(state: State): void {
+  public update(state: State | null): void {
     // Updates the on characteristic
+    if (!state) {
+      this.service.updateCharacteristic(
+        this.getPowerCharacteristic(),
+        new this.platform.api.hap.HapStatusError(
+          HAPStatus.SERVICE_COMMUNICATION_FAILURE
+        )
+      );
+      return;
+    }
     this.state = state;
     this.platform.log.debug('Updated state to ' + this.state.execution.mode);
     this.service.updateCharacteristic(
