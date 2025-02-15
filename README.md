@@ -269,49 +269,49 @@ http://<YOUR-HOST-IP-ADDRESS>:<apiPort>/state
 
 The response is a JSON object, looking like this:
 
-```
+```json
 {
-	"hue": {
-		"bridgeUniqueId": "ID1",
-		"bridgeIpAddress": "192.168.1.2",
-		"groupId": "1",
-		"groups": {
-			"1": {
-				"name": "Living Room TV area",
-				"numLights": 1,
-				"active": true,
-				"owner": "HueSyncBox (ID2)"
-			},
-			"2": {
-				"name": "Bedroom TV area",
-				"numLights": 2,
-				"active": false
-			}
-		},
-		"connectionState": "streaming"
-	},
-	"execution": {
-		"mode": "video",
-		"syncActive": true,
-		"hdmiActive": true,
-		"hdmiSource": "input4",
-		"hueTarget": "1",
-		"brightness": 200,
-		"lastSyncMode": "video",
-		"video": {
-			"intensity": "moderate",
-			"backgroundLighting": true
-		},
-		"game": {
-			"intensity": "intense",
-			"backgroundLighting": false
-		},
-		"music": {
-			"intensity": "high",
-			"palette": "melancholicEnergetic"
-		},
-		"preset": null
-	}
+  "hue": {
+    "bridgeUniqueId": "ID1",
+    "bridgeIpAddress": "192.168.1.2",
+    "groupId": "1",
+    "groups": {
+      "1": {
+        "name": "Living Room TV area",
+        "numLights": 1,
+        "active": true,
+        "owner": "HueSyncBox (ID2)"
+      },
+      "2": {
+        "name": "Bedroom TV area",
+        "numLights": 2,
+        "active": false
+      }
+    },
+    "connectionState": "streaming"
+  },
+  "execution": {
+    "mode": "video",
+    "syncActive": true,
+    "hdmiActive": true,
+    "hdmiSource": "input4",
+    "hueTarget": "1",
+    "brightness": 200,
+    "lastSyncMode": "video",
+    "video": {
+      "intensity": "moderate",
+      "backgroundLighting": true
+    },
+    "game": {
+      "intensity": "intense",
+      "backgroundLighting": false
+    },
+    "music": {
+      "intensity": "high",
+      "palette": "melancholicEnergetic"
+    },
+    "preset": null
+  }
 }
 ```
 
@@ -325,49 +325,49 @@ http://<YOUR-HOST-IP-ADDRESS>:<apiPort>/state
 
 The body of the request has to be JSON and can contain any/some/all of the following values:
 
-```
+```json5
 {
-    "hue": {
-		"bridgeUniqueId": "ID1",
-		"bridgeIpAddress": "192.168.1.2",
-		"groupId": "1",
-		"groups": {
-			"1": {
-				"name": "Living Room TV area",
-				"numLights": 1,
-				"active": true,
-				"owner": "HueSyncBox (ID2)"
-			},
-			"56169ef5-be8e-4866-adce-ff3800aca35e": {
-				"name": "Bedroom TV area",
-				"numLights": 2,
-				"active": false
-			}
-		},
-		"connectionState": "streaming"
-	},
-	"execution": {
-		"mode": "video",
-		"syncActive": true,
-		"hdmiActive": true,
-		"hdmiSource": "input4",
-		"hueTarget": "1",
-		"brightness": 200,
-		"lastSyncMode": "video",
-		"video": {
-			"intensity": "moderate",
-			"backgroundLighting": true
-		},
-		"game": {
-			"intensity": "intense",
-			"backgroundLighting": false
-		},
-		"music": {
-			"intensity": "high",
-			"palette": "melancholicEnergetic"
-		},
-		"preset": null
-	}
+  hue: {
+    bridgeUniqueId: 'ID1',
+    bridgeIpAddress: '192.168.1.2',
+    groupId: '1',
+    groups: {
+      '12345678-be8e-4866-adce-ff3800aca123': {
+        name: 'Living Room TV area',
+        numLights: 1,
+        active: true,
+        owner: 'HueSyncBox (ID2)',
+      },
+      '56169ef5-be8e-4866-adce-ff3800aca35e': {
+        name: 'Bedroom TV area',
+        numLights: 2,
+        active: false,
+      },
+    },
+    connectionState: 'streaming',
+  },
+  execution: {
+    mode: 'video',
+    syncActive: true,
+    hdmiActive: true,
+    hdmiSource: 'input4',
+    hueTarget: '12345678-be8e-4866-adce-ff3800aca123', // this must be the ID of the group you want to sync from hue.groups. Any other value will cause an error.
+    brightness: 200,
+    lastSyncMode: 'video',
+    video: {
+      intensity: 'moderate',
+      backgroundLighting: true,
+    },
+    game: {
+      intensity: 'intense',
+      backgroundLighting: false,
+    },
+    music: {
+      intensity: 'high',
+      palette: 'melancholicEnergetic',
+    },
+    preset: null,
+  },
 }
 ```
 
