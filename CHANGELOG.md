@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.2.3...v1.2.4) (2025-06-29)
+
+### Bug Fixes
+
+* support old "TV"(uppercase) default config. Fixes [#188](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/188) ([#191](https://github.com/jabrown93/homebridge-philips-hue-sync-box/issues/191)) ([554b167](https://github.com/jabrown93/homebridge-philips-hue-sync-box/commit/554b167ab95d33d567a5babf762232e2a750e3a1))
+
 ## [1.2.3](https://github.com/jabrown93/homebridge-philips-hue-sync-box/compare/v1.2.2...v1.2.3) (2025-02-04)
 
 ### Bug Fixes
